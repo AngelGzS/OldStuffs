@@ -13,10 +13,12 @@ $VERSION = '1.00';
     license     => 'Public Domain'
 );
 
-command_bind nowp => sub {
-    my($data, $server, $witem) = @_;
-    $artista=`osascript -e 'tell application "iTunes" to artist of current track as string'`;
-    $cancion=`osascript -e 'tell application "iTunes" to name of current track as string'`;
-    $nowplaying = "NP: $artista - $cancio"";
+sub nowp {
+    my ($data, $server, $witem) = @_;
+    my $artista = `osascript -e 'tell application "iTunes" to artist of current track as string'`;
+    my $cancion = `osascript -e 'tell application "iTunes" to name of current track as string'`;
+    my $nowplaying = "NP: $artista - $cancion";
     $witem->command("me $nowplaying");
 };
+
+Irssi::command_bind('np', 'nowp');
